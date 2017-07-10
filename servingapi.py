@@ -43,12 +43,14 @@ import matplotlib.pyplot as plt
 # if you already have some saved:
 #test_data = np.load('test_data.npy')
 def catdogclassifiation():
-    test_data = process_test_data()
-    img_data = test_data[0]
-    data = img_data.reshape(IMG_SIZE,IMG_SIZE,1)
-    model_out = model.predict([data])[0]
-        if np.argmax(model_out) == 1: return 'Dog'
-        else: return 'Cat'
+    if (path == ''): return ''
+    else:
+        test_data = process_test_data()
+        img_data = test_data[0]
+        data = img_data.reshape(IMG_SIZE,IMG_SIZE,1)
+        model_out = model.predict([data])[0]
+            if np.argmax(model_out) == 1: return 'Dog'
+            else: return 'Cat'
 
 # fig=plt.figure()
 
