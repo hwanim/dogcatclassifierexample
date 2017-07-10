@@ -12,8 +12,7 @@ def make_response(message):
 
     response_message = catdogclassifiation()
     if message["type"] == "message":
-    ReplyToActivity(fill=message,
-                    text=response_message).send()
+    ReplyToActivity(fill=message,text=response_message).send()
 
 
 bot = MsBot(port=int(os.environ['PORT']))
