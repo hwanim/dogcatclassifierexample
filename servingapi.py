@@ -14,7 +14,7 @@ IMG_SIZE = 50
 LR = 1e-3
 
 MODEL_NAME = 'dogsvscats-{}-{}.model'.format(LR, '6conv-basic') # just so we remember which saved model is which, sizes must match
-TEST_DIR = ????
+# TEST_DIR = ????
 
 
 if os.path.exists('{}.meta'.format(MODEL_NAME)):
