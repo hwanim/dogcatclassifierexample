@@ -31,7 +31,7 @@ def make_response(message):
 def catdogclassifiation(message):
     url = message["attachments"][0]["contentUrl"]
     data = url2img(url)
-    data = img_data.reshape(IMG_SIZE,IMG_SIZE,1)
+    data = img.reshape(IMG_SIZE,IMG_SIZE,1)
     model = model_load()
     model_out = model.predict([data])
     if np.argmax(model_out) == 1: return 'Dog'
