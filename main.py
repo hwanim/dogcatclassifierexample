@@ -1,7 +1,7 @@
 __metaclass__ = type
 
 from microsoftbotframework import MsBot
-from tasks import *
+from servingapi import *
 import os
 
 from microsoftbotframework import ReplyToActivity
