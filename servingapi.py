@@ -30,7 +30,7 @@ def make_response(message):
 
 def catdogclassifiation(message):
     url = message["attachments"][0]["contentUrl"]
-    data = url2img(url)
+    img = url2img(url)
     data = img.reshape(IMG_SIZE,IMG_SIZE,1)
     model = model_load()
     model_out = model.predict([data])
