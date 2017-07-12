@@ -18,9 +18,6 @@ MODEL_NAME = 'dogsvscats-{}-{}.model'.format(LR, '6conv-basic') # just so we rem
 # TEST_DIR = ????
 
 
-if os.path.exists('{}.meta'.format(MODEL_NAME)):
-    model.load(MODEL_NAME)
-    print('model loaded!')
 
 
 def make_response(message):
@@ -45,6 +42,11 @@ def url2img(url):
     img = cv2.resize(img, (IMG_SIZE, IMG_SIZE))
     img = np.array(img)
     return img
+
+if os.path.exists('{}.meta'.format(MODEL_NAME)):
+    model.load(MODEL_NAME)
+
+return model
 
 
 # def process_test_data():
