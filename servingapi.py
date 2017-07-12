@@ -9,6 +9,7 @@ from tflearn.layers.conv import conv_2d, max_pool_2d
 from tflearn.layers.core import input_data, dropout, fully_connected
 from tflearn.layers.estimator import regression
 import tensorflow as tf
+from urllib.request import urlopen
 
 IMG_SIZE = 50
 LR = 1e-3
@@ -21,6 +22,12 @@ if os.path.exists('{}.meta'.format(MODEL_NAME)):
     model.load(MODEL_NAME)
     print('model loaded!')
 
+
+def make_response(message):
+    # input_image = #input message
+    # path = #extract the path of picture in input_image
+    if message["attachment"][0]["contentType"] == "image/jpeg":
+        ReplyToActivity(fill =message,text=catdogclassifiation(message).send)
 
 def process_test_data():
     testing_data = []
@@ -42,15 +49,21 @@ import matplotlib.pyplot as plt
 # if you need to create the data:
 # if you already have some saved:
 #test_data = np.load('test_data.npy')
-def catdogclassifiation():
-    if (path == ''): return ''
-    else:
-        test_data = process_test_data()
-        img_data = test_data[0]
-        data = img_data.reshape(IMG_SIZE,IMG_SIZE,1)
-        model_out = model.predict([data])[0]
-            if np.argmax(model_out) == 1: return 'Dog'
-            else: return 'Cat'
+def catdogclassifiation(message):
+    url = message["attachment"][0]["contentUrl"]
+    data = url2img(url)
+    data = img_data.reshape(IMG_SIZE,IMG_SIZE,1)
+    model_out = model.predict([data])
+    if np.argmax(model_out) == 1: return 'Dog'
+    else: return 'Cat'
+
+def url2img(url):
+    resp = urlopen(url)
+    img = np.asarray(bytearray(resp.read(),dtype ="unint8"))
+    img = cv2.imdecode(img, cv2.IMREAD_GRAYSCALE)
+    img = cv2.resize(img, (IMG_SIZE, IMG_SIZE))
+    img = np.array(img)
+    return img
 
 # fig=plt.figure()
 
