@@ -79,7 +79,7 @@ def model_load():
     model = tflearn.DNN(convnet, tensorboard_dir='log')
 
     if os.path.exists('{}.meta'.format(MODEL_NAME)):
-        model = model.load(MODEL_NAME)
+        model.load(MODEL_NAME)
 
     return model
 
