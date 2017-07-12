@@ -23,12 +23,12 @@ MODEL_NAME = 'dogsvscats-{}-{}.model'.format(LR, '6conv-basic') # just so we rem
 def make_response(message):
     # input_image = #input message
     # path = #extract the path of picture in input_image
-    if message["attachment"][0]["contentType"] == "image/jpeg":
+    if message["attachments"][0]["contentType"] == "image/jpeg":
         ReplyToActivity(fill=message,text=catdogclassifiation(message)).send()
 
 
 def catdogclassifiation(message):
-    url = message["attachment"][0]["contentUrl"]
+    url = message["attachments"][0]["contentUrl"]
     data = url2img(url)
     data = img_data.reshape(IMG_SIZE,IMG_SIZE,1)
     model = model_load()
