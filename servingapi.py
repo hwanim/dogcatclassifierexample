@@ -10,6 +10,7 @@ from tflearn.layers.core import input_data, dropout, fully_connected
 from tflearn.layers.estimator import regression
 import tensorflow as tf
 from urllib.request import urlopen
+from microsoftbotframework import ReplyToActivity
 
 IMG_SIZE = 50
 LR = 1e-3
