@@ -27,7 +27,7 @@ def make_response(message):
     # input_image = #input message
     # path = #extract the path of picture in input_image
     if message["attachment"][0]["contentType"] == "image/jpeg":
-        ReplyToActivity(fill =message,text=catdogclassifiation(message).send()
+        ReplyToActivity(fill=message,text=catdogclassifiation(message)).send()
 
 
 def catdogclassifiation(message):
