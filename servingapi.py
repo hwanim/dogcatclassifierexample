@@ -15,12 +15,11 @@ LR = 1e-3
 MODEL_NAME = 'dogsvscats-{}-{}.model'.format(LR, '6conv-basic') # just so we remember which saved model is which, sizes must match
 # TEST_DIR = ????
 
-
-def make_response(message):
+def response(message):
     if message["attachments"][0]["contentType"] == "image/jpeg":
-        ReplyToActivity(fill=message,text=catdogclassifiation(message)).send()
+        ReplyToActivity(fill=message, text=classify(message)).send()
 
-def catdogclassifiation(message):
+def classify(message):
     url = message["attachments"][0]["contentUrl"]
     data = url2img(url)
     data = data.reshape(IMG_SIZE,IMG_SIZE,1)
