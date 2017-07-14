@@ -1,16 +1,13 @@
-import cv2                 # working with, mainly resizing, images
-import numpy as np         # dealing with arrays
-import os                  # dealing with directories
-# from random import shuffle # mixing up or currently ordered data that might lead our network astray in training.
-# from tqdm import tqdm      # a nice pretty percentage bar for tasks. Thanks to viewer Daniel BA1/4hler for this suggestion
-
+from microsoftbotframework import ReplyToActivity
+from urllib.request import urlopen
+import numpy as np
+import cv2
+import os
+import tensorflow as tf
 import tflearn
 from tflearn.layers.conv import conv_2d, max_pool_2d
 from tflearn.layers.core import input_data, dropout, fully_connected
 from tflearn.layers.estimator import regression
-import tensorflow as tf
-from urllib.request import urlopen
-from microsoftbotframework import ReplyToActivity
 
 IMG_SIZE = 50
 LR = 1e-3
@@ -19,23 +16,19 @@ MODEL_NAME = 'dogsvscats-{}-{}.model'.format(LR, '6conv-basic') # just so we rem
 # TEST_DIR = ????
 
 
-
-
 def make_response(message):
-    # input_image = #input message
-    # path = #extract the path of picture in input_image
     if message["attachments"][0]["contentType"] == "image/jpeg":
         ReplyToActivity(fill=message,text=catdogclassifiation(message)).send()
 
-
 def catdogclassifiation(message):
     url = message["attachments"][0]["contentUrl"]
-    img = url2img(url)
-    data = img.reshape(IMG_SIZE,IMG_SIZE,1)
+    data = url2img(url)
+    data = data.reshape(IMG_SIZE,IMG_SIZE,1)
     model = model_load()
     model_out = model.predict([data])
-    if np.argmax(model_out) == 1: return 'Dog'
-    else: return 'Cat'
+    if np.argmax(model_out) == 1: str_label = 'Dog'
+    else: str_label =  'Cat'
+    return str_label
 
 def url2img(url):
     resp = urlopen(url)
